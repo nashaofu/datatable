@@ -1,0 +1,26 @@
+[
+    {
+        "title": "ID",
+        "default": "-",
+        "data": "id",
+        "maxlength": 30,
+        "searchable": true,
+        "sortable": true
+    },
+    {
+        "title": "ocode",
+        "default": "-",
+        "data": "ocode",
+        "maxlength": 30,
+        "searchable": true,
+        "sortable": true
+    },
+    {
+        "title": "简介",
+        "default": "-",
+        "data": "content",
+        "maxlength": 30,
+        "searchable": true,
+        "sortable": true
+    }
+]

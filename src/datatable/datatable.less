@@ -1,0 +1,125 @@
+@cell-padding: 8px;
+@sort-button-height: 12px;
+.datatable {
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    .datatable-table {
+        overflow: auto;
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+    }
+    .datatable-pagination {
+        white-space: nowrap;
+        margin: 20px 0;
+        ul {
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            border-radius: 3px;
+        }
+    }
+}
+
+.datatable-table {
+    th, td {
+        border: 1px solid #ddd;
+        position: relative;
+    }
+    th {
+        white-space: nowrap;
+        font-weight: 400;
+    }
+    th:not(.datatable-table-search), td {
+        padding: @cell-padding;
+    }
+    .datatable-table-search {
+        padding: 0;
+    }
+}
+
+.datatable-table-sortable {
+    .datatable-table-title {
+        margin-right: 26px;
+    }
+}
+
+.datatable-table-sortbutton {
+    width: 18px;
+    height: 2 * @sort-button-height;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 6px @cell-padding;
+    a {
+        display: block;
+        width: 18px;
+        height: @sort-button-height;
+        line-height: @sort-button-height * 0.85;
+        color: #ccc;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        outline: none;
+        &:hover, &.datatable-table-sortbyasc, &.datatable-table-sortbydesc {
+            color: #333;
+        }
+        &:hover {
+            text-decoration: none;
+            outline: none;
+        }
+        span {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            vertical-align: middle;
+            &.angle-up {
+                border-bottom: 7px dashed;
+                border-right: 7px solid transparent;
+                border-left: 7px solid transparent;
+                margin-top: 1px;
+            }
+            &.angle-down {
+                border-top: 7px dashed;
+                border-right: 7px solid transparent;
+                border-left: 7px solid transparent;
+                margin-bottom: 1px;
+            }
+        }
+    }
+}
+
+.datatable-table-search {
+    >input[type="text"] {
+        width: 100%;
+        display: block;
+        padding: @cell-padding;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+    }
+    >span {
+        padding: @cell-padding;
+    }
+}
+
+.datatable-pagination {
+    li {
+        display: inline;
+        a, span {
+            position: relative;
+            float: left;
+            padding: 6px 12px;
+            margin-left: -1px;
+            line-height: 1.42857143;
+            color: #337ab7;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+    }
+}

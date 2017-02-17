@@ -1,14 +1,20 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
-  </div>
+	<div id="app">
+		<img
+			class="logo" src="./assets/logo.png"
+		>
+		<nav>
+			<router-link to="/">Hello</router-link>
+			<router-link to="/datatable">Datatable</router-link>
+		</nav>
+		<router-view></router-view>
+	</div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+	export default {
+		name: 'app'
+	}
 </script>
 
 <style>
@@ -16,8 +22,12 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.logo {
+  width: 100px;
+  height: 100px;
+	margin: 0 auto;
 }
 </style>

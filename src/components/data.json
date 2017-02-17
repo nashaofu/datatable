@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "name": "比尔·盖茨",
+        "career": "Microsoft公司联合创始人",
+        "nationality": "美国",
+        "company": "Microsoft",
+        "introduction": "比尔·盖茨(Bill Gates),全名威廉·亨利·盖茨三世,简称比尔或盖茨。1955年10月28日出生于美国华盛顿州西雅图,企业家、软件工程师、慈善家、微软公司创始人。曾任微软董事长、CEO和首席软件设计师。"
+    },
+    {
+        "id": 2,
+        "name": "史蒂夫·乔布斯",
+        "career": "Apple公司联合创始人",
+        "nationality": "美国",
+        "company": "Apple",
+        "introduction": "史蒂夫·乔布斯(Steve Jobs,1955年2月24日—2011年10月5日),出生于美国加利福尼亚州旧金山,美国发明家、企业家、美国苹果公司联合创办人。"
+    },
+    {
+        "id": 3,
+        "name": "马克·扎克伯格",
+        "career": "Facebook创始人兼首席执行官",
+        "nationality": "美国",
+        "company": "Facebook",
+        "introduction": "马克·艾略特·扎克伯格(Mark Elliot Zuckerberg),1984年05月14日生于美国纽约州白原市。社交网站Facebook(脸书)的创始人兼首席执行官,被人们冠以“第二盖茨”的美誉。哈佛大学计算机和心理学专业辍学生。据《福布斯》杂志保守估计,马克·扎克伯格拥有135亿美元身价,是2008年全球最年轻的巨富,也是历来全球最年轻的自行创业亿万富豪。"
+    },
+    {
+        "id": 4,
+        "name": "拉里·佩奇",
+        "career": "Google创始人兼首席执行官",
+        "nationality": "美国",
+        "company": "Google",
+        "introduction": "拉里·佩奇,全名劳伦斯·爱德华·佩奇(Lawrence Edward Page),美国密歇根大学安娜堡分校的荣誉毕业生,拥有密歇根大学理工科学士学位和斯坦福大学计算机科学博士学位。"
+    },
+    {
+        "id": 5,
+        "name": "谢尔盖·布林",
+        "career": "Google创始人兼技术部总监",
+        "nationality": "美国",
+        "company": "Google",
+        "introduction": "谢尔盖·布林,全名谢尔盖·米克哈伊洛维奇·布林(Sergey Brin)(俄语： Сергей Михайлович Брин)是Google公司联合创始人之一。是一位美国籍俄罗斯裔企业家。他出生在俄罗斯,在他与拉里·佩奇合作建立Google之前,他一直学习计算机科学和数学。谢尔盖目前是Google董事兼技术部总监。"
+    },
+    {
+        "id": 6,
+        "name": "杰夫·贝佐斯",
+        "career": "Amazon董事会主席兼CEO",
+        "nationality": "美国",
+        "company": "Amazon",
+        "introduction": "杰夫·贝佐斯(Jeff Bezos),创办了全球最大的网上书店Amazon(亚马逊),1999年当选《时代》周刊年度人物。2013年8月,贝佐斯以个人名义花费2.5亿美元收购《华盛顿邮报》。2014年2月,年仅50岁的杰夫·贝佐斯以2250亿元人民币高居2014年世界富豪榜第7位。2015年9月29日,《福布斯》发布美国富豪400强榜单显示,杰夫·贝佐斯以470亿美元净资产排名第四。"
+    },
+    {
+        "id": 7,
+        "name": "埃隆·马斯克",
+        "career": "Tesl SpaceX CEO",
+        "nationality": "美国",
+        "company": "Tesla SpaceX",
+        "introduction": "埃隆·马斯克(Elon Musk)或伊隆·马斯克,1971年6月28日出生于南非,18岁时移民加拿大,工程师、慈善家、PayPal贝宝(最大的网上支付公司)、SpaceX太空探索技术公司、环保电动汽车公司特斯拉(Tesla)以及SolarCity四家公司的CEO。SpaceX太空探索技术公司首席执行官兼首席技术官,环保电动汽车公司特斯拉(Tesla)产品设计师。"
+    }
+]

@@ -1,16 +1,16 @@
 [
     {
         "title": "ID",
-        "default": "-",
+        "default": "-/-",
         "data": "id",
         "maxlength": 30,
         "searchable": true,
         "sortable": true
     },
     {
-        "title": "ocode",
+        "title": "姓名",
         "default": "-",
-        "data": "ocode",
+        "data": "name",
         "maxlength": 30,
         "searchable": true,
         "sortable": true
@@ -18,7 +18,31 @@
     {
         "title": "简介",
         "default": "-",
-        "data": "content",
+        "data": "career",
+        "maxlength": 30,
+        "searchable": true,
+        "sortable": true
+    },
+    {
+        "title": "国籍",
+        "default": "-",
+        "data": "nationality",
+        "maxlength": 30,
+        "searchable": true,
+        "sortable": true
+    },
+    {
+        "title": "公司",
+        "default": "-",
+        "data": "company",
+        "maxlength": 30,
+        "searchable": true,
+        "sortable": true
+    },
+    {
+        "title": "简介",
+        "default": "没有数据",
+        "data": "introduction",
         "maxlength": 30,
         "searchable": true,
         "sortable": true

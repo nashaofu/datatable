@@ -21,12 +21,13 @@
     import _ from 'lodash';
     import Datatable from '../datatable';
     import columns from './columns';
+    import data from './data';
 
     export default {
         name: 'data',
         data() {
             return {
-                data: [],
+                data: data,
                 columns: _.cloneDeep(columns),
                 options: {
                     searchable: true,
@@ -39,12 +40,12 @@
             Datatable
         },
         created() {
-            this.$http.get('/api/user').then((res) => {
-                this.data = res.data.data.data;
-                console.log(res.data.data.data)
-            }, (res) => {
+            // this.$http.get('/api/user').then((res) => {
+            //     this.data = res.data.data.data;
+            //     console.log(res.data.data.data)
+            // }, (res) => {
 
-            });
+            // });
         },
         methods: {
             changecols(e) {

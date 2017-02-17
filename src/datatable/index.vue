@@ -5,11 +5,10 @@
                 <thead>
                     <tr>
                         <th v-if="selectable">
-                            <input
-                                type="checkbox"
-                                v-model="selectall"
-                                @change="selectallchange"
-                            >
+                            <label class="datatable-table-checkbox">
+                                <input type="checkbox" v-model="selectall" @change="selectallchange">
+                                <span class="checkbox" :class="{ checked: selectall }"></span>
+                            </label>
                         </th>
                         <th
                             v-for="item in cols"
@@ -17,7 +16,7 @@
                         >
                             <div class="datatable-table-title">{{ item.title }}</div>
                             <div
-                                v-if="sortable && item.sortable"
+                                v-if="sortable && item.sortable && item.data && sortKeys[item.data]"
                                 class="datatable-table-sortbutton"
                             >
                                 <a
@@ -46,7 +45,7 @@
                             class="datatable-table-search"
                         >
                             <input
-                                v-if="item.searchable"
+                                v-if="item.searchable && item.data && searchKeys[item.data]"
                                 type="text"
                                 :placeholder="item.title"
                                 v-model="searchKeys[item.data].keyword"
@@ -59,18 +58,17 @@
                 <tbody>
                     <tr v-for="(row,index) in rows">
                         <td v-if="selectable">
-                            <input
-                                type="checkbox"
-                                v-model="selectKeys[index].select"
-                                @change="select"
-                            >
+                            <label class="datatable-table-checkbox">
+                                <input type="checkbox" v-model="selectKeys[index].select" @change="select">
+                                <span class="checkbox" :class="{ checked: selectKeys[index].select }"></span>
+                            </label>
                         </td>
                         <td v-for="col in cols">
                             {{ { row: row, col: col } | filter }}
                         </td>
                     </tr>
                     <tr v-if="!rows.length">
-                        <td :colspan="{ cols: cols, selectable: selectable } | nodata">没有数据</td>
+                        <td :colspan="{ cols: cols, selectable: selectable } | colspan">没有数据</td>
                     </tr>
                 </tbody>
             </table>
@@ -113,7 +111,8 @@
                 searchKeys: {},
                 selectKeys: {},
                 selectall: false,
-                pages: [1, 2, 3, 4, 5, 6, 7, 8]
+                pages: [1, 2, 3, 4, 5, 6, 7, 8],
+                timer: null
             }
         },
         computed: {
@@ -192,13 +191,13 @@
                     return col.default;
                 }
                 // 限制最大长度
-                if (row[col.data].length > col.maxlength) {
+                if (col.maxlength && row[col.data].length > col.maxlength) {
                     return `${row[col.data].slice(0, col.maxlength)}...`;
                 } else {
                     return row[col.data];
                 }
             },
-            nodata(value) {
+            colspan(value) {
                 const cols = value.cols;
                 const selectable = value.selectable;
                 if (selectable) {
@@ -311,35 +310,45 @@
                 }
             },
             search() {
-                if (this.searchable) {
-                    this.$emit('search', this.Getsearch);
-                }
+                // 防止一直发生
+                this.timer && clearTimeout(this.timer);
+                this.timer = setTimeout(() => {
+                    if (this.searchable) {
+                        this.$emit('search', this.Getsearch);
+                    }
+                }, 300);
             },
             select() {
-                if (this.Getselect.length === this.rows.length) {
-                    this.selectall = true;
-                } else {
-                    this.selectall = false;
-                }
-                if (this.selectable) {
-                    this.$emit('select', this.Getselect);
-                }
+                // IE下事件先发生，延时以兼容
+                setTimeout(() => {
+                    if (this.Getselect.length === this.rows.length) {
+                        this.selectall = true;
+                    } else {
+                        this.selectall = false;
+                    }
+                    if (this.selectable) {
+                        this.$emit('select', this.Getselect);
+                    }
+                }, 100);
             },
             selectallchange() {
-                // 初始化选择的数据
-                const rows = this.rows;
-                const selectKeys = {};
-                // 有BUG数据更新后会仍然记住是否选择
-                for (let i = 0, length = rows.length; i < length; i++) {
-                    selectKeys[i] = {
-                        data: rows[i],
-                        select: this.selectall
+                // IE下事件先发生，延时以兼容
+                setTimeout(() => {
+                    // 初始化选择的数据
+                    const rows = this.rows;
+                    const selectKeys = {};
+                    // 有BUG数据(data)更新后会仍然记住是否选择
+                    for (let i = 0, length = rows.length; i < length; i++) {
+                        selectKeys[i] = {
+                            data: rows[i],
+                            select: this.selectall
+                        }
                     }
-                }
-                this.selectKeys = selectKeys;
-                if (this.selectable) {
-                    this.$emit('select', this.Getselect);
-                }
+                    this.selectKeys = selectKeys;
+                    if (this.selectable) {
+                        this.$emit('select', this.Getselect);
+                    }
+                }, 100);
             }
         }
     }

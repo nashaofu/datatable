@@ -65,13 +65,13 @@
                 this.options.selectable = !this.options.selectable;
             },
             sort(sort) {
-                console.log(sort)
+                console.log(`sort:${JSON.stringify(sort)}`)
             },
             search(serach) {
-                console.log(serach);
+                console.log(`serach:${JSON.stringify(serach)}`);
             },
             select(select) {
-                console.log(select);
+                console.log(`select:${JSON.stringify(select)}`);
             }
         }
     }

@@ -23,11 +23,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 .logo {
-  width: 100px;
-  height: 100px;
+  width: 40px;
+  height: 40px;
 	margin: 0 auto;
 }
 </style>

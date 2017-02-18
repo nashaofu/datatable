@@ -76,5 +76,20 @@ export default {
             }
         }
         return tmp;
+    },
+    pagertotal() {
+        return Math.ceil(this.pagination.total / this.pagination.size);
+    },
+    pagercurrent() {
+        return this.pagination.current;
+    },
+    pagersize() {
+        return this.pagination.size;
+    },
+    Getpagercurrent() {
+        return this.pager.current;
+    },
+    Getpagersize() {
+        return this.pager.size;
     }
 }

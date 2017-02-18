@@ -91,5 +91,38 @@ export default {
             return;
         }
         this.$emit('select', nVal);
+    },
+    pagertotal(nVal, oVal) {
+        this.pager = {
+            total: nVal,
+            current: this.pagercurrent,
+            size: this.pagersize
+        }
+    },
+    pagercurrent(nVal, oVal) {
+        this.pager = {
+            total: this.pagertotal,
+            current: nVal,
+            size: this.pagersize
+        }
+    },
+    pagersize(nVal, oVal) {
+        this.pages = {
+            total: this.pagestotal,
+            current: this.pagercurrent,
+            size: nVal
+        }
+    },
+    Getpagercurrent(nVal, oVal) {
+        this.$emit('page', {
+            current: this.pager.current,
+            size: this.pager.size
+        });
+    },
+    Getpagersize(nVal, oVal) {
+        this.$emit('page', {
+            current: this.pager.current,
+            size: this.pager.size
+        });
     }
 }

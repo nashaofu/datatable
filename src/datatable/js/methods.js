@@ -20,7 +20,19 @@ export default {
         }
         this.selectKeys = selectKeys;
     },
-    page() {
-
+    pageprev() {
+        if (this.pager.current > 1) {
+            this.pager.current--;
+        }
+    },
+    pagenext() {
+        if (this.pager.current < this.pager.total) {
+            this.pager.current++;
+        }
+    },
+    page(page) {
+        if (page >= 1 && page <= this.pager.total) {
+            this.pager.current = page;
+        }
     }
 }

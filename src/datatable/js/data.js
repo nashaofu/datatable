@@ -4,7 +4,11 @@ export default function () {
         searchKeys: {},
         selectKeys: {},
         selectall: false,
-        pagination: [1, 2, 3, 4, 5, 6, 7, 8],
+        pager: {
+            total: 0,
+            current: 1,
+            size: 10
+        },
         timer: null
     }
 }

@@ -4,9 +4,11 @@
             :data="data"
             :columns="columns"
             :options="options"
+            :pagination="pagination"
             @sort="sort"
             @search="search"
             @select="select"
+            @page="page"
         >
         </datatable>
         <div>
@@ -14,6 +16,7 @@
             <button @click="changesearch">搜索</button>
             <button @click="changesort">排序</button>
             <button @click="changeselect">选择</button>
+            <button @click="changepagination">页数</button>
         </div>
     </div>
 </template>
@@ -33,6 +36,11 @@
                     searchable: true,
                     sortable: true,
                     selectable: true
+                },
+                pagination: {
+                    total: 500,
+                    current: 1,
+                    size: 10
                 }
             }
         },
@@ -64,6 +72,10 @@
             changeselect() {
                 this.options.selectable = !this.options.selectable;
             },
+            changepagination() {
+                this.pagination.current = Math.random() > 0.5 ? 5 : 3;
+                this.pagination.total = Math.ceil(Math.random() * 900) + 100;
+            },
             sort(sort) {
                 console.log(`sort:${JSON.stringify(sort)}`)
             },
@@ -72,6 +84,10 @@
             },
             select(select) {
                 console.log(`select:${JSON.stringify(select)}`);
+            },
+            page(pager) {
+                this.pagination.current = pager.current;
+                console.log(`pager:${JSON.stringify(pager)}`);
             }
         }
     }

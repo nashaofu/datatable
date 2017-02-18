@@ -16,5 +16,15 @@ export default {
         default() {
             return {};
         }
+    },
+    pagination: {
+        type: Object,
+        default() {
+            return {
+                total: 0,
+                current: 1,
+                size: 10
+            }
+        }
     }
 }

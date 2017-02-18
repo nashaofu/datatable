@@ -29,4 +29,10 @@ export default function () {
     }
     this.sortKeys = sortKeys;
     this.searchKeys = searchKeys;
+    // 获取分页信息
+    this.pager = {
+        total: this.pagertotal,
+        current: this.pagercurrent,
+        size: this.pagersize
+    }
 }

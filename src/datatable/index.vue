@@ -73,12 +73,70 @@
             </table>
         </div>
         <div class="datatable-pagination">
-            <ul>
+            <div class="datatable-pagination-total">
+                <span>共 {{ pagination.total }} 条</span>
+                <span>{{ pager.size }} 条/页</span>
+            </div>
+            <ul class="datatable-pagination-pager">
                 <li
-                    v-for="item in pagination"
-                    @click="page"
+                    :class="{ disabled: pager.current === 1 }"
+                    @click="pageprev"
                 >
-                    <a href="javascript:void(0)">{{ item }}</a>
+                    <a href="javascript:void(0)">上一页</a>
+                </li>
+                <li
+                    :class="{ active: pager.current === 1 }"
+                    @click="page(1)"
+                >
+                    <a href="javascript:void(0)">1</a>
+                </li>
+                <li v-if="pager.current - 3 > 1">
+                    <a href="javascript:void(0)">...</a>
+                </li>
+                <li
+                    v-if="pager.current - 2 > 1"
+                    @click="page(pager.current - 2)"
+                >
+                    <a href="javascript:void(0)">{{ pager.current - 2 }}</a>
+                </li>
+                <li
+                    v-if="pager.current - 1 > 1"
+                    @click="page(pager.current - 1)"
+                >
+                    <a href="javascript:void(0)">{{ pager.current - 1 }}</a>
+                </li>
+                <li
+                    v-if="pager.current != 1 && pager.current != pager.total"
+                    class="active"
+                >
+                    <a href="javascript:void(0)">{{ pager.current }}</a>
+                </li>
+                <li
+                    v-if="pager.current + 1 < pager.total"
+                    @click="page(pager.current + 1)"
+                >
+                    <a href="javascript:void(0)">{{ pager.current + 1 }}</a>
+                </li>
+                <li
+                    v-if="pager.current + 2 < pager.total"
+                    @click="page(pager.current + 2)"
+                >
+                    <a href="javascript:void(0)">{{ pager.current + 2 }}</a>
+                </li>
+                <li v-if="pager.current + 3 < pager.total">
+                    <a href="javascript:void(0)">...</a>
+                </li>
+                <li v-if="pager.total > 1"
+                    :class="{ active: pager.current === pager.total }"
+                    @click="page(pager.total)"
+                >
+                    <a href="javascript:void(0)">{{ pager.total }}</a>
+                </li>
+                <li
+                    :class="{ disabled: pager.current === pager.total }"
+                    @click="pagenext"
+                >
+                    <a href="javascript:void(0)">下一页</a>
                 </li>
             </ul>
         </div>

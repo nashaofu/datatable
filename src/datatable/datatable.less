@@ -20,11 +20,14 @@
     .datatable-pagination {
         white-space: nowrap;
         margin: 20px 0;
-        ul {
+        .datatable-pagination-pager, .datatable-pagination-total {
             margin: 0;
             padding: 0;
             display: inline-block;
-            border-radius: 3px;
+            vertical-align: top;
+        }
+        .datatable-pagination-total {
+            padding: 6px 12px;
         }
     }
 }
@@ -146,16 +149,32 @@
 .datatable-pagination {
     li {
         display: inline;
-        a, span {
+        a {
             position: relative;
             float: left;
             padding: 6px 12px;
             margin-left: -1px;
-            line-height: 1.42857143;
-            color: #337ab7;
+            line-height: 1.42;
+            color: #333;
             text-decoration: none;
             background-color: #fff;
             border: 1px solid #ddd;
+            cursor: pointer;
+            &:hover {
+                color: #23527c;
+                background-color: #eee;
+            }
+        }
+        &.active > a {
+            background-color: #337ab7;
+            border: 1px solid #337ab7;
+            color: #fff;
+            cursor: default;
+        }
+        &.disabled > a, &.disabled > a:hover {
+            cursor: not-allowed;
+            color: #777;
+            background-color: #fff;
         }
     }
 }

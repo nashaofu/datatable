@@ -23,7 +23,7 @@
             <button @click="changesearch">搜索</button>
             <button @click="changesort">排序</button>
             <button @click="changeselect">选择</button>
-            <button @click="changepagination">页数</button>
+            <button @click="changepageable">分页</button>
         </div>
     </div>
 </template>
@@ -95,9 +95,8 @@
             changeselect() {
                 this.options.selectable = !this.options.selectable;
             },
-            changepagination() {
-                this.pagination.current = Math.random() > 0.5 ? 5 : 3;
-                this.pagination.total = Math.ceil(Math.random() * 900) + 100;
+            changepageable() {
+                this.options.pageable = !this.options.pageable;
             },
             sort(sort) {
                 console.log(`sort:${JSON.stringify(sort)}`)

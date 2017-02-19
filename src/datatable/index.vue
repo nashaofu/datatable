@@ -201,7 +201,8 @@
     // 组件数据
     export default {
         name: 'datatable',
-        p      data,
+        props,
+        data,
         computed,
         watch,
         filters,

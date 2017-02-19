@@ -10,6 +10,12 @@
             @select="select"
             @page="page"
         >
+            <template scope="data">
+                <div v-if="data.col.data">{{ data.row[data.col.data] }}</div>
+                <div v-else-if="!data.col.data && data.col.title==='操作'">
+                    <button @click="show(data)">查看</button>
+                </div>
+            </template>
         </datatable>
         <div>
             <button @click="changecols">改变显示列</button>
@@ -48,14 +54,29 @@
             Datatable
         },
         created() {
-            // this.$http.get('/api/user').then((res) => {
-            //     this.data = res.data.data.data;
-            //     console.log(res.data.data.data)
-            // }, (res) => {
-
-            // });
+            this.getdata(1);
         },
         methods: {
+            getdata(page) {
+                const data = {
+                    page: page,
+                    per_page: this.pagination.size
+                }
+                this.$http.get('/api/user', {
+                    params: {
+                        data: JSON.stringify(data)
+                    }
+                }).then((res) => {
+                    this.data = res.data.data.data;
+                    this.pagination = {
+                        total: res.data.data.total,
+                        current: res.data.data.current_page,
+                        size: res.data.data.per_page
+                    }
+                }, (res) => {
+                    console.log(res);
+                });
+            },
             changecols(e) {
                 if (!this.columns[0]) {
                     this.columns = _.cloneDeep(columns);
@@ -86,8 +107,11 @@
                 console.log(`select:${JSON.stringify(select)}`);
             },
             page(pager) {
-                this.pagination.current = pager.current;
+                this.getdata(pager.current);
                 console.log(`pager:${JSON.stringify(pager)}`);
+            },
+            show(sds) {
+                console.log(sds)
             }
         }
     }

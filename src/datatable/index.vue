@@ -63,7 +63,12 @@
                             </label>
                         </td>
                         <td v-for="col in cols">
-                            {{ { row: row, col: col } | filter }}
+                            <slot
+                                :row="row"
+                                :col="col"
+                            >
+                                {{ { row: row, col: col } | filter }}
+                            </slot>
                         </td>
                     </tr>
                     <tr v-if="!rows.length">
@@ -131,13 +136,13 @@
                     @click="page(pager.total)"
                 >
                     <a href="javascript:void(0)">{{ pager.total }}</a>
-                </li>
-                <li
-                    :class="{ disabled: pager.current === pager.total }"
-                    @click="pagenext"
-                >
-                    <a href="javascript:void(0)">下一页</a>
-                </li>
+                    </li>
+                    <li
+                        :class="{ disabled: pager.current === pager.total }"
+                        @click="pagenext"
+                    >
+                        <a href="javascript:void(0)">下一页</a>
+                    </li>
             </ul>
         </div>
     </div>

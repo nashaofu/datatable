@@ -5,12 +5,7 @@ export default {
         if (!col.data || !row[col.data]) {
             return col.default;
         }
-        // 限制最大长度
-        if (col.maxlength && row[col.data].length > col.maxlength) {
-            return `${row[col.data].slice(0, col.maxlength)}...`;
-        } else {
-            return row[col.data];
-        }
+        return row[col.data];
     },
     colspan(value) {
         const cols = value.cols;

@@ -1,4 +1,8 @@
+// 搜索延时优化
+let timer = null;
+
 export default {
+    // 排序
     sortable(nVal, oVal) {
         if (!nVal) {
             for (let key in this.sortKeys) {
@@ -6,6 +10,7 @@ export default {
             }
         }
     },
+    // 搜索
     searchable(nVal, oVal) {
         if (!nVal) {
             for (let key in this.searchKeys) {
@@ -13,6 +18,7 @@ export default {
             }
         }
     },
+    // 选择
     selectable(nVal, oVal) {
         if (!nVal) {
             for (let key in this.selectKeys) {
@@ -21,6 +27,7 @@ export default {
             }
         }
     },
+    // 列表行数据
     rows(nVal, oVal) {
         const rows = nVal;
         const selectKeys = {};
@@ -34,20 +41,21 @@ export default {
         }
         this.selectKeys = selectKeys;
     },
+    // 列表列数据
     cols(nVal, oVal) {
         const sortKeys = {};
         const searchKeys = {};
         const cols = nVal;
         for (let i = 0, length = cols.length; i < length; i++) {
-            if (cols[i].data) {
-                let order = this.sortKeys[cols[i].data] && this.sortKeys[cols[i].data].order;
-                sortKeys[cols[i].data] = {
-                    key: cols[i].data,
+            if (cols[i].key) {
+                let order = this.sortKeys[cols[i].key] && this.sortKeys[cols[i].key].order;
+                sortKeys[cols[i].key] = {
+                    key: cols[i].key,
                     order: order || null
                 };
-                let keyword = this.searchKeys[cols[i].data] && this.searchKeys[cols[i].data].keyword;
-                searchKeys[cols[i].data] = {
-                    key: cols[i].data,
+                let keyword = this.searchKeys[cols[i].key] && this.searchKeys[cols[i].key].keyword;
+                searchKeys[cols[i].key] = {
+                    key: cols[i].key,
                     keyword: keyword || null
                 }
             }
@@ -55,6 +63,7 @@ export default {
         this.sortKeys = sortKeys;
         this.searchKeys = searchKeys;
     },
+    // 排序数据变化
     Getsort(nVal, oVal) {
         // 判断是否新旧值相等
         // watcher只能够比较基本类型的数据值
@@ -64,6 +73,7 @@ export default {
         }
         this.$emit('sort', nVal);
     },
+    // 搜索数据变化
     Getsearch(nVal, oVal) {
         // 判断是否新旧值相等
         // watcher只能够比较基本类型的数据值
@@ -72,14 +82,15 @@ export default {
             return;
         }
         // 防止一直发生
-        this.timer && clearTimeout(this.timer);
-        this.timer = setTimeout(() => {
+        timer && clearTimeout(timer);
+        timer = setTimeout(() => {
             this.$emit('search', nVal);
         }, 300);
     },
+    // 选中数据变化
     Getselect(nVal, oVal) {
         // 判断是否全选
-        if (nVal.length === this.rows.length) {
+        if (nVal.length && nVal.length === this.rows.length) {
             this.selectall = true;
         } else {
             this.selectall = false;
@@ -92,6 +103,7 @@ export default {
         }
         this.$emit('select', nVal);
     },
+    // 页码总数变化
     pagertotal(nVal, oVal) {
         this.pager = {
             total: nVal,
@@ -99,6 +111,7 @@ export default {
             size: this.pagersize
         }
     },
+    // 当前页码变化
     pagercurrent(nVal, oVal) {
         this.pager = {
             total: this.pagertotal,
@@ -106,6 +119,7 @@ export default {
             size: this.pagersize
         }
     },
+    // 分页大小变化
     pagersize(nVal, oVal) {
         this.pages = {
             total: this.pagestotal,
@@ -113,12 +127,14 @@ export default {
             size: nVal
         }
     },
+    // 获取当前页的数据变化处理
     Getpagercurrent(nVal, oVal) {
         this.$emit('page', {
             current: this.pager.current,
             size: this.pager.size
         });
     },
+    // 获取当前分页大小的数据变化处理
     Getpagersize(nVal, oVal) {
         this.$emit('page', {
             current: this.pager.current,

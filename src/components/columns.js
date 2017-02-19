@@ -2,49 +2,49 @@ export default [
     {
         title: "ID",
         default: "-",
-        data: "id",
+        key: "id",
         searchable: true,
         sortable: true
     },
     {
         title: "姓名",
         default: "-",
-        data: "name",
+        key: "name",
         searchable: true,
         sortable: true
     },
     {
         title: "简介",
         default: "-",
-        data: "career",
+        key: "career",
         searchable: true,
         sortable: true
     },
     {
         title: "国籍",
         default: "-",
-        data: "nationality",
+        key: "nationality",
         searchable: true,
         sortable: true
     },
     {
         title: "公司",
         default: "-",
-        data: "company",
+        key: "company",
         searchable: true,
         sortable: true
     },
     {
         title: "简介",
         default: "没有数据",
-        data: "introduction",
+        key: "introduction",
         searchable: true,
         sortable: true
     },
     {
         title: "操作",
         default: "没有数据",
-        data: null,
+        key: 'buttons',
         searchable: false,
         sortable: false
     }

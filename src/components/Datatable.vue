@@ -10,11 +10,12 @@
             @select="select"
             @page="page"
         >
-            <template scope="data">
-                <div v-if="data.col.data">{{ data.row[data.col.data] }}</div>
-                <div v-else-if="!data.col.data && data.col.title==='操作'">
-                    <button @click="show(data)">查看</button>
-                </div>
+            <template
+                slot="buttons"
+                scope="row"
+            >
+                <button @click="show(row)">查看</button>
+                <button @click="alert(row)">alert</button>
             </template>
         </datatable>
         <div>
@@ -36,15 +37,16 @@
         name: 'data',
         data() {
             return {
-                data: data,
+                data: _.cloneDeep(data),
                 columns: _.cloneDeep(columns),
                 options: {
                     searchable: true,
                     sortable: true,
-                    selectable: true
+                    selectable: true,
+                    pageable: true
                 },
                 pagination: {
-                    total: 500,
+                    total: 7,
                     current: 1,
                     size: 10
                 }
@@ -54,7 +56,7 @@
             Datatable
         },
         created() {
-            this.getdata(1);
+            // this.getdata(1);
         },
         methods: {
             getdata(page) {
@@ -110,8 +112,11 @@
                 this.getdata(pager.current);
                 console.log(`pager:${JSON.stringify(pager)}`);
             },
-            show(sds) {
-                console.log(sds)
+            show(row) {
+                console.log(row)
+            },
+            alert(row) {
+                alert(JSON.stringify(row));
             }
         }
     }

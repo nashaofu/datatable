@@ -1,16 +1,24 @@
 export default {
+    // 是否有排序按钮
     sortable() {
-        return this.options.sortable;
+        return this.options.sortable || false;
     },
+    // 是否支持搜索
     searchable() {
-        return this.options.searchable;
+        return this.options.searchable || false;
     },
+    // 是否支持多选
     selectable() {
-        return this.options.selectable;
+        return this.options.selectable || false;
     },
+    pageable() {
+        return this.options.pageable || false;
+    },
+    // 表格行的数据信息
     rows() {
         return this.data;
     },
+    // 表格列的数据信息
     cols() {
         if (this.columns.length) {
             return this.columns;
@@ -25,7 +33,7 @@ export default {
                     tmp[key] = {
                         title: key,
                         default: '-',
-                        data: key,
+                        key: key,
                         searchable: true,
                         sortable: true
                     }
@@ -38,6 +46,7 @@ export default {
         }
         return cols;
     },
+    // 获取排序的字段及其排序方式
     Getsort() {
         const tmp = [];
         for (let key in this.sortKeys) {
@@ -51,6 +60,7 @@ export default {
         }
         return tmp;
     },
+    // 获取搜索的字段及其搜索内容
     Getsearch() {
         const tmp = [];
         for (let key in this.searchKeys) {
@@ -64,6 +74,7 @@ export default {
         }
         return tmp;
     },
+    // 获取选中的行及其数据
     Getselect() {
         const tmp = [];
         for (let key in this.selectKeys) {
@@ -77,18 +88,23 @@ export default {
         }
         return tmp;
     },
+    // 分页信息总页数
     pagertotal() {
-        return Math.ceil(this.pagination.total / this.pagination.size);
+        return Math.ceil(this.pagination.total / this.pagination.size) || 0;
     },
+    // 分页信息当前页
     pagercurrent() {
-        return this.pagination.current;
+        return this.pagination.current || 1;
     },
+    // 分页信息分页大小
     pagersize() {
-        return this.pagination.size;
+        return this.pagination.size || 10;
     },
+    // 获取当前页码
     Getpagercurrent() {
         return this.pager.current;
     },
+    // 获取当前分页大小
     Getpagersize() {
         return this.pager.size;
     }

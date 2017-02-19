@@ -1,4 +1,5 @@
 export default {
+    // 排序按钮点击
     sort(key, order) {
         this.sortKeys[key] = {
             key: key,
@@ -20,16 +21,19 @@ export default {
         }
         this.selectKeys = selectKeys;
     },
+    // 上一页
     pageprev() {
         if (this.pager.current > 1) {
             this.pager.current--;
         }
     },
+    // 下一页
     pagenext() {
         if (this.pager.current < this.pager.total) {
             this.pager.current++;
         }
     },
+    // 页码点击
     page(page) {
         if (page >= 1 && page <= this.pager.total) {
             this.pager.current = page;

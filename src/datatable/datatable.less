@@ -47,6 +47,13 @@
     .datatable-table-search {
         padding: 0;
     }
+    .datatable-table-empty {
+        padding: 20px 8px;
+        text-align: center;
+        >span:first-child {
+            font-size: 36px;
+        }
+    }
 }
 
 .datatable-table-checkbox {
@@ -67,16 +74,17 @@
             &:after {
                 content: '';
                 display: block;
-                width: 4px;
-                height: 8px;
+                width: 6px;
+                height: 10px;
                 position: absolute;
-                top: 1px;
+                top: 0;
                 left: 4px;
                 border-top: none;
                 border-right: 2px solid #fff;
                 border-bottom: 2px solid #fff;
                 border-left: none;
                 transform: rotate(45deg);
+                box-sizing: border-box;
             }
         }
     }

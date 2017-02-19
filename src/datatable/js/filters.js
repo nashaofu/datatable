@@ -1,12 +1,14 @@
 export default {
+    // 过滤单元格显示文字
     filter(value) {
         const row = value.row;
         const col = value.col;
-        if (!col.data || !row[col.data]) {
+        if (!col.key || !row[col.key]) {
             return col.default;
         }
-        return row[col.data];
+        return row[col.key];
     },
+    // 当没有数据时计算表格td所占列数
     colspan(value) {
         const cols = value.cols;
         const selectable = value.selectable;

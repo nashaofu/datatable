@@ -6,46 +6,46 @@
                 <thead>
                     <tr>
                         <!--全选按钮-->
-                        <th v-if="selectable && cols.length">
+                        <th v-if="options.selectable && cols.length">
                             <label class="datatable-table-checkbox">
-                                <input type="checkbox" v-model="selectall" @click="select">
+                                <input type="checkbox" v-model="selectall" @click="selecthandle">
                                 <span class="checkbox" :class="{ checked: selectall }"></span>
                             </label>
                         </th>
                         <!--字段标题及其排序-->
                         <th
                             v-for="item in cols"
-                            :class="{ 'datatable-table-sortable': sortable && item.sortable }"
+                            :class="{ 'datatable-table-sortable': options.sortable && item.sortable }"
                         >
                             <!--字段标题-->
                             <div class="datatable-table-title">{{ item.title }}</div>
                             <!--排序-->
                             <div
-                                v-if="sortable && item.sortable && item.key && sortKeys[item.key]"
+                                v-if="options.sortable && item.sortable && item.key && sort[item.key]"
                                 class="datatable-table-sortbutton"
                             >
                                 <!--排序ASC-->
                                 <a
                                     href="javascript:void(0)"
-                                    :class="{ 'datatable-table-sortbyasc': sortKeys[item.key].order === 'ASC' }"
-                                    @click="sort(item.key, 'ASC')"
+                                    :class="{ 'datatable-table-sortbyasc': sort[item.key].order === 'ASC' }"
+                                    @click="sorthandle(item.key, 'asc')"
                                 >
                                     <span class="angle-up"></span>
                                 </a>
                                 <!--排序DESC-->
                                 <a
                                     href="javascript:void(0)"
-                                    :class="{ 'datatable-table-sortbydesc': sortKeys[item.key].order === 'DESC' }"
-                                    @click="sort(item.key, 'DESC')"
+                                    :class="{ 'datatable-table-sortbydesc': sort[item.key].order === 'DESC' }"
+                                    @click="sorthandle(item.key, 'desc')"
                                 >
                                     <span class="angle-down"></span>
                                 </a>
                             </div>
                         </th>
                     </tr>
-                    <tr v-if="searchable">
+                    <tr v-if="options.searchable">
                         <!--如果有选择按钮,则第一列显示为空-->
-                        <th v-if="selectable && cols.length">
+                        <th v-if="options.selectable && cols.length">
                             <span>-</span>
                         </th>
                         <!--搜索框-->
@@ -54,10 +54,10 @@
                             class="datatable-table-search"
                         >
                             <input
-                                v-if="item.searchable && item.key && searchKeys[item.key]"
+                                v-if="item.searchable && item.key && search[item.key]"
                                 type="text"
                                 :placeholder="item.title"
-                                v-model="searchKeys[item.key].keyword"
+                                v-model="search[item.key].keyword"
                             >
                             <span v-else>-</span>
                         </th>
@@ -66,10 +66,10 @@
                 <tbody>
                     <tr v-for="(row,index) in rows">
                         <!--显示选择按钮-->
-                        <td v-if="selectable">
+                        <td v-if="options.selectable">
                             <label class="datatable-table-checkbox">
-                                <input type="checkbox" v-model="selectKeys[index].select">
-                                <span class="checkbox" :class="{ checked: selectKeys[index].select }"></span>
+                                <input type="checkbox" v-model="select[index].select">
+                                <span class="checkbox" :class="{ checked: select[index].select }"></span>
                             </label>
                         </td>
                         <!--显示数据的单元格-->
@@ -86,7 +86,7 @@
                     <tr v-if="!rows.length">
                         <td
                             class="datatable-table-empty"
-                            :colspan="{ cols: cols, selectable: selectable } | colspan"
+                            :colspan="{ cols: cols, selectable: options.selectable } | colspan"
                         >
                             <span>:(</span>
                             <span>没有数据</span>
@@ -98,7 +98,7 @@
         <!--分页信息-->
         <div
             class="datatable-pagination"
-            v-if="pageable"
+            v-if="options.pageable"
         >
             <!--分页统计-->
             <div class="datatable-pagination-total">
@@ -110,14 +110,14 @@
                 <!--上一页-->
                 <li
                     :class="{ disabled: pager.current <= 1 }"
-                    @click="pageprev"
+                    @click="pagehandle('prev')"
                 >
                     <a href="javascript:void(0)">上一页</a>
                 </li>
                 <!--第一页-->
                 <li
                     :class="{ active: pager.current === 1 }"
-                    @click="page(1)"
+                    @click="pagehandle(1)"
                 >
                     <a href="javascript:void(0)">1</a>
                 </li>
@@ -128,14 +128,14 @@
                 <!--当前页的前面第2页-->
                 <li
                     v-if="pager.current - 2 > 1"
-                    @click="page(pager.current - 2)"
+                    @click="pagehandle(pager.current - 2)"
                 >
                     <a href="javascript:void(0)">{{ pager.current - 2 }}</a>
                 </li>
                 <!--当前页的前一页-->
                 <li
                     v-if="pager.current - 1 > 1"
-                    @click="page(pager.current - 1)"
+                    @click="pagehandle(pager.current - 1)"
                 >
                     <a href="javascript:void(0)">{{ pager.current - 1 }}</a>
                 </li>
@@ -149,14 +149,14 @@
                 <!--当前页的后一页-->
                 <li
                     v-if="pager.current + 1 < pager.total"
-                    @click="page(pager.current + 1)"
+                    @click="pagehandle(pager.current + 1)"
                 >
                     <a href="javascript:void(0)">{{ pager.current + 1 }}</a>
                 </li>
                 <!--当前页的后面第2页-->
                 <li
                     v-if="pager.current + 2 < pager.total"
-                    @click="page(pager.current + 2)"
+                    @click="pagehandle(pager.current + 2)"
                 >
                     <a href="javascript:void(0)">{{ pager.current + 2 }}</a>
                 </li>
@@ -167,14 +167,14 @@
                 <!--最后一页-->
                 <li v-if="pager.total > 1"
                     :class="{ active: pager.current === pager.total }"
-                    @click="page(pager.total)"
+                    @click="pagehandle(pager.total)"
                 >
                     <a href="javascript:void(0)">{{ pager.total }}</a>
                 </li>
                 <!--下一页-->
                 <li
                     :class="{ disabled: pager.current >= pager.total }"
-                    @click="pagenext"
+                    @click="pagehandle('next')"
                 >
                     <a href="javascript:void(0)">下一页</a>
                 </li>
@@ -209,6 +209,7 @@
         created,
         methods
     }
+
 </script>
 <style
     src="./datatable.less"

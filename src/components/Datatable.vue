@@ -37,7 +37,7 @@
         name: 'data',
         data() {
             return {
-                data: _.cloneDeep(data),
+                data: [],
                 columns: _.cloneDeep(columns),
                 options: {
                     searchable: true,
@@ -46,9 +46,9 @@
                     pageable: true
                 },
                 pagination: {
-                    total: 7,
+                    total: 0,
                     current: 1,
-                    size: 10
+                    size: 5
                 }
             }
         },
@@ -56,24 +56,22 @@
             Datatable
         },
         created() {
-            // this.getdata(1);
+            this.getdata();
         },
         methods: {
-            getdata(page) {
+            getdata() {
                 const data = {
-                    page: page,
-                    per_page: this.pagination.size
+                    current: this.pagination.current,
+                    size: this.pagination.size
                 }
-                this.$http.get('/api/user', {
-                    params: {
-                        data: JSON.stringify(data)
-                    }
+                this.$http.get('/api/user/', {
+                    params: data
                 }).then((res) => {
-                    this.data = res.data.data.data;
+                    this.data = res.data.data;
                     this.pagination = {
-                        total: res.data.data.total,
-                        current: res.data.data.current_page,
-                        size: res.data.data.per_page
+                        total: res.data.total,
+                        current: res.data.current,
+                        size: res.data.size
                     }
                 }, (res) => {
                     console.log(res);
@@ -108,8 +106,9 @@
                 console.log(`select:${JSON.stringify(select)}`);
             },
             page(pager) {
-                this.getdata(pager.current);
-                console.log(`pager:${JSON.stringify(pager)}`);
+                this.pagination.current = pager.current;
+                this.pagination.size = pager.size;
+                this.getdata();
             },
             show(row) {
                 console.log(row)
@@ -119,4 +118,5 @@
             }
         }
     }
+
 </script>

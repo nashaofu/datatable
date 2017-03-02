@@ -28,3 +28,7 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## BUG
+
+1. 分页信息中的total改变时，不应触发pager事件

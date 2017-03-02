@@ -1,20 +1,20 @@
 export default {
     // 表格渲染数据
-    data: {
+    data : {
         type: Array,
         default() {
             return [];
         }
     },
     // 列配置
-    columns: {
+    columns : {
         type: Array,
         default() {
             return [];
         }
     },
     // 表格配置选项
-    options: {
+    options : {
         type: Object,
         default() {
             return {
@@ -30,7 +30,7 @@ export default {
         }
     },
     // 分页数据
-    pagination: {
+    pagination : {
         type: Object,
         default() {
             return {

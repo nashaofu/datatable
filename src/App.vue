@@ -1,12 +1,5 @@
 <template>
 	<div id="app">
-		<img
-			class="logo" src="./assets/logo.png"
-		>
-		<nav>
-			<router-link to="/">Hello</router-link>
-			<router-link to="/datatable">Datatable</router-link>
-		</nav>
 		<router-view></router-view>
 	</div>
 </template>

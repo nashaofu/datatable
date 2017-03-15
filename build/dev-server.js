@@ -60,6 +60,37 @@ app.use(devMiddleware)
 // compilation error display
 app.use(hotMiddleware)
 
+var data = require('../data')
+// 自定义API数据
+app.get('/api/data', function(req, res, next) {
+  if(!res.writable) {
+    return next();
+  }
+  var current = parseInt(req.query.current || 1);
+  if(current < 1) {
+    current = 1;
+  }
+  var size = parseInt(req.query.size || 5);
+  if(size < 1) {
+    size = 1;
+  }
+  var start = (current - 1) * size;
+  var response = {
+    current: current,
+    size: size,
+    total: data.length,
+    data: []
+  };
+  for(var i = 0; i < size; i++){
+    if(start + i >= data.length) {
+      break;
+    }
+    response.data.push(data[start + i]);
+  }
+  res.send(response);
+  next()
+})
+
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))

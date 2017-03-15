@@ -1,5 +1,15 @@
 <template>
     <div>
+        <div class="toolbar">
+            <div class="title">datatable</div>
+            <div class="btn-group">
+                <button class="btn" @click="changecols">改变显示列</button>
+                <button class="btn" @click="changesearch">搜索</button>
+                <button class="btn" @click="changesort">排序</button>
+                <button class="btn" @click="changeselect">选择</button>
+                <button class="btn" @click="changepageable">分页</button>
+            </div>
+        </div>
         <datatable
             :data="data"
             :columns="columns"
@@ -18,20 +28,13 @@
                 <button @click="alert(row)">alert</button>
             </template>
         </datatable>
-        <div>
-            <button @click="changecols">改变显示列</button>
-            <button @click="changesearch">搜索</button>
-            <button @click="changesort">排序</button>
-            <button @click="changeselect">选择</button>
-            <button @click="changepageable">分页</button>
-        </div>
     </div>
 </template>
 <script>
     import _ from 'lodash';
     import Datatable from '../datatable';
     import columns from './columns';
-    import data from './data';
+    import data from '../../data';
 
     export default {
         name: 'data',
@@ -48,7 +51,7 @@
                 pagination: {
                     total: 0,
                     current: 1,
-                    size: 5
+                    size: 3
                 }
             }
         },
@@ -64,7 +67,7 @@
                     current: this.pagination.current,
                     size: this.pagination.size
                 }
-                this.$http.get('/api/user/', {
+                this.$http.get('/api/data/', {
                     params: data
                 }).then((res) => {
                     this.data = res.data.data;
@@ -118,5 +121,36 @@
             }
         }
     }
-
 </script>
+<style>
+.toolbar {
+    margin: 5px auto;
+    font-family: "Microsoft Yahei", "微软雅黑";
+}
+.toolbar::before,.toolbar::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+.title {
+    font-size: 16px;
+    font-weight: 700;
+    float: left
+}
+.btn-group {
+    float: right;
+}
+.btn {
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 3px 6px;
+    float: left;
+    margin-left: -1px;
+    position: relative;
+}
+.btn:active,.btn:focus {
+    z-index: 1;
+}
+</style>

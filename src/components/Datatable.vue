@@ -65,8 +65,11 @@
             getdata() {
                 const data = {
                     current: this.pagination.current,
-                    size: this.pagination.size
+                    size: this.pagination.size,
+                    search: {id: 1},
+                    sort: {id: 'asc'}
                 }
+                console.log(data)
                 this.$http.get('/api/data/', {
                     params: data
                 }).then((res) => {

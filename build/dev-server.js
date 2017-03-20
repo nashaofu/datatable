@@ -66,10 +66,12 @@ app.get('/api/data', function(req, res, next) {
   if(!res.writable) {
     return next();
   }
+  // 当前页
   var current = parseInt(req.query.current || 1);
   if(current < 1) {
     current = 1;
   }
+  // 每页显示数据
   var size = parseInt(req.query.size || 5);
   if(size < 1) {
     size = 1;
